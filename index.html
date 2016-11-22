@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"  />
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+	<meta name="description" content="This Description for Site">
+	<title>index</title>
+	<script type="text/javascript" src="asset/js/jquery-3.1.1.js"></script>
+	<script type="text/javascript" src="asset/js/jquery.validate.js"></script>
+	<link href="asset/css/style.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="wrap">
+		<header class="add_fix">
+			<nav>
+				<a href="#">Home</a>
+				<a href="#">Category</a>
+				<a href="#">Archieve</a>
+				<a href="#">RSS</a>
+			</nav>
+			<button class="burger"><img src="asset/css/img/burger-menu.svg"/></button>
+		</header>
+		
+		<section id="myarticle">
+			<article>
+				<h1>Tidak Ada Anak Bodoh, Dia Akan Berprestasi jika Punya Motivasi untuk Jadi Hebat</h1>
+				<div class="ts">
+					<time><i>Sabtu, 8 Oktober 2016</i></time>
+					<button onClick="toggleNightMode()">Night Mode</button>
+				</div>
+				<p>Tidak ada anak bodoh di dunia ini. Yang ada hanyalah hanya anak yang tidak mendapat kesempatan dan motivasi untuk menjadi hebat.</p>
+				<p>Demikian disampaikan oleh pelatih sekaligus pemimpin Tim Olimliade Fisika Indonesia (TOFI), Yohanes Surya saat menjadi pembicara dalam segmen "Berbagi Iptek" dalam acara Kompasianival di gedung Smesco, Jakarta, Sabtu (8/10/2016).</p>
+				<p>Menurut Surya, keberhasilan anak dalam bidang sains tergantung pada metode pengajaran yang benar dan motivasi yang hebat.</p>
+				<figure>
+					<img src="images/img.jpg" alt="" width="750" height="">
+					<figcaption>Pelatih sekaligus pemimpin Tim Olimpiade Fisika Indonesia (TOFI) Yohanes Surya saat jadi pembicara dalam acara Kompasianival di gedung Smesco, Jakarta, Sabtu (8/10/2016).</figcaption>
+				</figure>
+				<p>Hal yang terakhir merupakan kunci dari keberhasilan itu. Dengan cara itu, anak didik tidak merasa terpaksa mempelajari ilmu sains dan fisika dan berkemauan mencetak prestasi.</p>
+				<blockquote>
+					<i>Simpel saja. Biasanya saya ajak ngomong, maunya apa ke depannya.</i>
+				</blockquote>
+				<p>Kepada para anak didiknya, Surya mengatakan bahwa dunia di masa depan akan dikuasai oleh teknologi. Saat ini saja, sudah ada beberapa temuan tentang penggunaan robot dalam kehidupan sehari-hari.</p>
+				<p>Dalam industri, misalnya, penggunaan robot dan mesin otomatis sudah menjadi hal biasa. Ada juga temuan robot yang bisa berbicara, yang bisa menyetir, hingga pelayan rumah tangga.</p>
+				<p>"Saya tantang mereka, teknologi begini, kalian mau belajar atau tidak? Makanya, jadi juara olimpiade. Lalu mereka jadi semangat. Ini jadi motivasi mereka," kata dia.</p>
+				<p>Mantan Rektor Universitas Multimedia Nusantara (UMN) itu menyatakan, setelah anak termotivasi, materi apa pun yang diberikan kepada mereka bisa masuk dengan baik karena adanya kemauan tinggi.</p>
+				<p>Belajar siang dan malam pun dilakukan sehingga mereka bisa menuai hasilnya.</p>
+				<p>Surya telah membuktikan hal itu dengan membawa para anak didiknya menyabet 54 medali emas, 33 medali perak, dan 42 medali perunggu dalam berbagai kompetisi sains atau fisika Internasional.</p>
+				<p>Pada 2006, siswa binaannya bernama Jonathan Pradana Mailoa berhasil meraih predikat "The Absolute Winner" dalam International Physics Olympiad (IPhO) XXXVII di Singapura.</p>
+				<p>"Waktu tahun 2006, ada 80 negara. Kita yang pertama. Yang paling sulit lawannya adalah China," kata pendiri Surya University tersebut.</p>
+				<p>Motivasi dan metode yang baik adalah kunci kesuksesannya mendidik siswa binaannya.</p>
+			</article>
+			<div class="comment">
+				<h2>Comments</h2>
+				<div>
+					<ul id="id_comment" class="show_comment">
+					</ul>
+				</div>
+			</div>
+			<form  id="commentForm" name="guest" class="form add_fix">
+				<h3>Speak up!</h3>
+				<div class="form-group w50 mr4">
+					<label for="fname">Name</label>
+					<input type="text" class="form-control" name="fname" placeholder="ex.John Hancock" required>
+				</div>
+				<div class="form-group w50">
+					<label for="email">Email</label>
+					<input type="email" class="form-control" name="femail" placeholder="ex.john@hancock.com" required>
+				</div>
+				<div class="form-group w100">
+					<label for="message">Message</label>
+					<textarea name="farea" class="form_area" name="message" placeholder="Be nice..." required></textarea>
+				</div>
+				<div class="form-group w100">
+					<button type="reset" onclick="next()" class="btn_reset">Reset</button>
+					<button type="submit" onclick="next()" class="btn_submit">Submit</button>
+				</div>
+			</form>
+		</section>
+	</div>
+<script>
+$( document ).ready(function() {
+	$.ajax({
+        url: "json/comments.json",
+        dataType: "json",
+        success: function(result) {
+			var tpl = "";
+			result.comments.forEach(function(item){
+				tpl += "<li class='add_fix'><div class='pic'><img src='"+ item.avatar +"'></div><div class='box'><h3>"+ item.name +"<time>"+ item.data +"</time></h3><p>"+ item.comment +"</p></div></li>";
+			});
+			$(".show_comment").html(tpl);
+		}
+    });
+	$("#commentForm").validate({
+		messages: {
+			fname: "Field may not empty.",
+			femail: "Field may not empty.",
+			farea: "Field may not empty."
+		}
+	});
+	$('.burger').click(function(e){
+		e.preventDefault();
+		if($(this).hasClass("open")){
+			$(this).removeClass("open");
+			$('header').stop().animate({top:-256},200);
+		}else{
+			$(this).addClass("open");
+			$('header').stop().animate({top:0},200);
+		}
+	});
+});
+	
+function toggleNightMode() {
+	var color = document.getElementById('myarticle').style.color;
+	var backgroundColor = document.getElementById('myarticle').style.backgroundColor;
+	var bodycolor = document.body.style.backgroundColor;
+
+	if (color == "black" && backgroundColor == "white") {
+		document.getElementById('myarticle').style.color="white";
+		document.getElementById('myarticle').style.backgroundColor="black";
+		document.getElementById('id_comment').style.color="black";
+		bodycolor = "black";
+	}else{
+		document.getElementById('myarticle').style.color="black";
+		document.getElementById('myarticle').style.backgroundColor="white";
+		document.getElementById('id_comment').style.color="black";
+		
+	}
+}
+</script>
+</body>
+</html>
